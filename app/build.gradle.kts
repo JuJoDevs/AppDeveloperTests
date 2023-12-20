@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-
+    alias(libs.plugins.hiltAndroid)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.io.gitlab.arturbosch.detekt)
     alias((libs.plugins.org.jlleitschuh.gradle.ktlint))
 }
@@ -67,6 +68,8 @@ dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.runtime.compose)
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
@@ -74,9 +77,36 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
 
+    // ICONS
+    implementation(libs.material.icons.extended)
+
+    // NAVIGATION
+    implementation(libs.navigation)
+
+    // PAGING
+    implementation(libs.paging)
+    implementation(libs.paging.compose)
+
+    // RETROFIT
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+
+    // ARROW
+    implementation(libs.arrow)
+
+    // HILT
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+
     // DETEKT
     detektPlugins(libs.detetkcompose)
     detektPlugins(libs.detetkformatting)
+
+    // COIL
+    implementation(libs.coil)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

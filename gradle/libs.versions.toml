@@ -7,6 +7,34 @@ core-ktx = "1.12.0"
 lifecycle-runtime-ktx = "2.6.2"
 activity-compose = "1.8.2"
 compose-bom = "2023.10.01"
+material-extended-icons = "1.5.4"
+
+#Paging
+paging = "3.2.1"
+paging-compose = "3.2.1"
+
+#Retrofit
+retrofit = "2.9.0"
+
+#Navigation
+navigation = "2.7.6"
+
+#OkHttp
+okhttp = "4.12.0"
+okhttp-logging-interceptor = "4.12.0"
+
+#Dagger - Hilt
+dagger-hilt = "2.49"
+androidx-hilt = "1.1.0"
+
+#Kotlin-ksp
+ksp = "1.9.20-1.0.14"
+
+#Arrow
+arrow = "1.2.0"
+
+#Coil
+coil = "2.5.0"
 
 ktlint = "11.6.1"
 detekt = "1.23.4"
@@ -20,11 +48,41 @@ espresso-core = "3.5.1"
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-runtime-ktx" }
+lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle-runtime-ktx" }
+
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+material-icons-extended =  { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-extended-icons" }
+
+#Paging
+paging = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging-compose" }
+
+#Retrofit
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+
+#Arrow
+arrow = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
+
+#OkHttp
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp-logging-interceptor" }
+
+#Dagger - Hilt
+dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger-hilt" }
+dagger-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "dagger-hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidx-hilt" }
+
+#Navigation
+navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+
+#Coil
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -40,6 +98,12 @@ ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+#Dagger-Hilt Module Project
+hiltAndroid= { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
+
+#KSP
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 io-gitlab-arturbosch-detekt = {  id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 org-jlleitschuh-gradle-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
