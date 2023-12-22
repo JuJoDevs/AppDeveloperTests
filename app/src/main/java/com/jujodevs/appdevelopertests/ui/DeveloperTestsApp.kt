@@ -11,14 +11,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.jujodevs.appdevelopertests.ui.navigation.Navigation
+import com.jujodevs.appdevelopertests.ui.screens.users.UsersTopBar
 import com.jujodevs.appdevelopertests.ui.theme.AppDeveloperTestsTheme
 
 @Composable
-fun DeveloperTestsApp(modifier: Modifier = Modifier) {
+fun DeveloperTestsApp(
+    modifier: Modifier = Modifier,
+    onFinishApp: () -> Unit = {}
+) {
     val navHostController = rememberNavController()
 
     Scaffold(
-        topBar = {},
+        topBar = {
+            UsersTopBar(
+                onNavigateBack = onFinishApp,
+            )
+        },
         content = { padding ->
             Box(
                 contentAlignment = Alignment.Center,
