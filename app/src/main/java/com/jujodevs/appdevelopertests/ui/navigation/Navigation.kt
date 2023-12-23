@@ -14,18 +14,20 @@ import com.jujodevs.appdevelopertests.ui.screens.users.UsersScreen
 @Composable
 fun Navigation(
     navHostController: NavHostController,
+    findText: String,
     onNavigationDetailClick: (User) -> Unit
 ) {
     NavHost(
         navController = navHostController,
         startDestination = Feature.USERS.route,
     ) {
-        userNav(onNavigationDetailClick)
+        userNav(onNavigationDetailClick, findText)
     }
 }
 
 fun NavGraphBuilder.userNav(
-    onNavigationDetailClick: (User) -> Unit
+    onNavigationDetailClick: (User) -> Unit,
+    findText: String
 ) {
     navigation(
         route = Feature.USERS.route,
@@ -33,6 +35,7 @@ fun NavGraphBuilder.userNav(
     ) {
         composable(NavCommand.ContentType(Feature.USERS)) {
             UsersScreen(
+                findText = findText,
                 onNavigateToDetail = { user ->
                     onNavigationDetailClick(user)
                 },

@@ -6,4 +6,5 @@
     <string name="gender">Género</string>
     <string name="registration_date">Fecha de registro</string>
     <string name="phone">Teléfono</string>
+    <string name="find">Buscar</string>
 </resources>

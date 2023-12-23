@@ -16,6 +16,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,11 +37,22 @@ import com.jujodevs.appdevelopertests.ui.common.RowSpacer
 
 @Composable
 fun UsersScreen(
+    findText: String,
     modifier: Modifier = Modifier,
     viewModel: UsersViewModel = hiltViewModel(),
     onNavigateToDetail: (User) -> Unit
 ) {
     val users = viewModel.userPagingFlow.collectAsLazyPagingItems()
+    var blockOnce by rememberSaveable { mutableStateOf(true) }
+
+    LaunchedEffect(key1 = findText) {
+        if (blockOnce) {
+            blockOnce = false
+            return@LaunchedEffect
+        }
+        viewModel.findUsers(findText)
+        users.refresh()
+    }
 
     Box(
         contentAlignment = Alignment.Center,
@@ -45,6 +61,7 @@ fun UsersScreen(
         when (users.loadState.refresh) {
             is LoadState.Error ->
                 Text(text = "Error" + (users.loadState.refresh as LoadState.Error).error.message)
+
             LoadState.Loading -> CircularProgressIndicator()
             is LoadState.NotLoading -> {
                 LazyColumn(Modifier.fillMaxSize()) {
@@ -55,7 +72,10 @@ fun UsersScreen(
                         users[index]?.let { user ->
                             UserItem(
                                 user = user,
-                                onNavigateToDetail = onNavigateToDetail,
+                                onNavigateToDetail = {
+                                    blockOnce = true
+                                    onNavigateToDetail(it)
+                                },
                             )
                         }
                     }

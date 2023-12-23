@@ -156,7 +156,10 @@ fun UserDetailRow(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier,
     ) {
-        Box(modifier = Modifier.size(42.dp)) { leftContent() }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.size(42.dp),
+        ) { leftContent() }
         Column(modifier = Modifier.padding(start = 12.dp, top = 8.dp, bottom = 8.dp)) {
             Text(
                 text = label,

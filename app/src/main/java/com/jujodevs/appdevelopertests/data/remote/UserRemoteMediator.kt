@@ -40,9 +40,6 @@ class UserRemoteMediator(
             )
 
             userDb.withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    userDb.dao.clearAll()
-                }
                 userDb.dao.upsertAll(users.toUserEntity(loadKey))
             }
 

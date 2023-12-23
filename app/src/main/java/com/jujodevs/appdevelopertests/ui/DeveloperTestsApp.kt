@@ -38,9 +38,8 @@ fun DeveloperTestsApp(
     val navHostController = rememberNavController()
     val navBackStackEntry by navHostController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route ?: ""
-    var currentUser by remember {
-        mutableStateOf(User())
-    }
+    var currentUser by remember { mutableStateOf(User()) }
+    var findText by remember { mutableStateOf("") }
 
     Scaffold(
         topBar = {
@@ -48,6 +47,8 @@ fun DeveloperTestsApp(
                 currentRoute = currentRoute,
                 currentUser = currentUser,
                 onBack = { navHostController.popBackStack() },
+                findText = findText,
+                onFindChange = { findText = it },
                 onFinishApp = onFinishApp,
             )
         },
@@ -56,7 +57,7 @@ fun DeveloperTestsApp(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.padding(padding),
             ) {
-                Navigation(navHostController) { user ->
+                Navigation(navHostController, findText) { user ->
                     currentUser = user
                     navHostController.navigate(
                         NavCommand.ContentDetail(Feature.USERS).createRoute(user.id),
@@ -73,6 +74,8 @@ private fun TopBar(
     currentRoute: String?,
     currentUser: User,
     onBack: () -> Unit,
+    findText: String,
+    onFindChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     onFinishApp: () -> Unit
 ) {
@@ -92,7 +95,11 @@ private fun TopBar(
     ) {
         when (currentRoute) {
             NavCommand.ContentType(Feature.USERS).route -> {
-                UsersTopBar(onNavigateBack = onFinishApp)
+                UsersTopBar(
+                    findText = findText,
+                    onFindChange = onFindChange,
+                    onNavigateBack = onFinishApp,
+                )
             }
             NavCommand.ContentDetail(Feature.USERS).route -> {
                 UserDetailTopBar(user = currentUser) {

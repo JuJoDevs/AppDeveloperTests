@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import androidx.paging.map
 import com.jujodevs.appdevelopertests.data.local.UserEntity
 import com.jujodevs.appdevelopertests.data.remote.mapper.toUser
@@ -13,13 +14,24 @@ import kotlinx.coroutines.flow.map
 
 @HiltViewModel
 class UsersViewModel @Inject constructor(
-    pager: Pager<Int, UserEntity>
+    private val pager: Pager<Int, UserEntity>
 ) : ViewModel() {
 
-    val userPagingFlow = pager
+    var userPagingFlow = pager
         .flow
         .map { pagingData ->
             pagingData.map { it.toUser() }
         }
         .cachedIn(viewModelScope)
+
+    fun findUsers(text: String) {
+        userPagingFlow = pager
+            .flow
+            .map { pagingData ->
+                pagingData.filter {
+                    it.name.contains(text, true) || it.email.contains(text, true)
+                }.map { it.toUser() }
+            }
+            .cachedIn(viewModelScope)
+    }
 }
