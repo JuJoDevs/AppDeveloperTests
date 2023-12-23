@@ -1,4 +1,4 @@
-package com.jujodevs.appdevelopertests.data.remote
+package com.jujodevs.appdevelopertests
 
 import com.jujodevs.appdevelopertests.domain.User
 

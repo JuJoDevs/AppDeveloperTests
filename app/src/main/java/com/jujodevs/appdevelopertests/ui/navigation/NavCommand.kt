@@ -12,8 +12,8 @@ sealed class NavCommand(
     class ContentType(feature: Feature) : NavCommand(feature)
 
     class ContentDetail(feature: Feature) :
-        NavCommand(feature, SubRoute.DETAIL.route, listOf(NavArg.Email)) {
-        fun createRoute(email: String) = "${feature.route}/$subRoute/$email"
+        NavCommand(feature, SubRoute.DETAIL.route, listOf(NavArg.Id)) {
+        fun createRoute(id: Int) = "${feature.route}/$subRoute/$id"
     }
 
     val route = run {
@@ -33,14 +33,14 @@ sealed class NavArg(val key: String, navTypeWrapper: NavTypeWrapper) {
 
     val navType = navTypeWrapper.navType
 
-    data object Email : NavArg("email", NavTypeWrapper.StringType)
+    data object Id : NavArg("id", NavTypeWrapper.IntType)
 }
 
 sealed class NavTypeWrapper(val navType: NavType<*>) {
     abstract fun getArg(navBackStackEntry: NavBackStackEntry, key: String): Any
 
-    data object StringType : NavTypeWrapper(NavType.StringType) {
+    data object IntType : NavTypeWrapper(NavType.IntType) {
         override fun getArg(navBackStackEntry: NavBackStackEntry, key: String): Any =
-            navBackStackEntry.arguments?.getString(key) as Any
+            navBackStackEntry.arguments?.getInt(key) as Any
     }
 }

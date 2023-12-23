@@ -59,7 +59,7 @@ fun DeveloperTestsApp(
                 Navigation(navHostController) { user ->
                     currentUser = user
                     navHostController.navigate(
-                        NavCommand.ContentDetail(Feature.USERS).createRoute(user.email),
+                        NavCommand.ContentDetail(Feature.USERS).createRoute(user.id),
                     )
                 }
             }

@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -23,7 +22,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.jujodevs.appdevelopertests.R
 import com.jujodevs.appdevelopertests.domain.User
@@ -35,21 +36,28 @@ fun UsersScreen(
     viewModel: UsersViewModel = hiltViewModel(),
     onNavigateToDetail: (User) -> Unit
 ) {
-    val state = viewModel.state.collectAsStateWithLifecycle()
+    val users = viewModel.userPagingFlow.collectAsLazyPagingItems()
 
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier.fillMaxSize(),
     ) {
-        when {
-            state.value.loading -> { CircularProgressIndicator() }
-            state.value.users.isNotEmpty() -> {
+        when (users.loadState.refresh) {
+            is LoadState.Error ->
+                Text(text = "Error" + (users.loadState.refresh as LoadState.Error).error.message)
+            LoadState.Loading -> CircularProgressIndicator()
+            is LoadState.NotLoading -> {
                 LazyColumn(Modifier.fillMaxSize()) {
-                    items(state.value.users) { user ->
-                        UserItem(
-                            user = user,
-                            onNavigateToDetail = onNavigateToDetail,
-                        )
+                    items(
+                        count = users.itemCount,
+                        key = users.itemKey { it.id },
+                    ) { index ->
+                        users[index]?.let { user ->
+                            UserItem(
+                                user = user,
+                                onNavigateToDetail = onNavigateToDetail,
+                            )
+                        }
                     }
                 }
             }

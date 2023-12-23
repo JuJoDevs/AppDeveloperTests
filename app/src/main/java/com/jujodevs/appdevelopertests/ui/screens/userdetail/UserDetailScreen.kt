@@ -19,18 +19,15 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jujodevs.appdevelopertests.R
-import com.jujodevs.appdevelopertests.data.remote.FakeUsers
 import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.appdevelopertests.ui.common.RowSpacer
 import com.jujodevs.appdevelopertests.ui.common.WebViewMap
 import com.jujodevs.appdevelopertests.ui.common.buildIFrameMap
 import com.jujodevs.appdevelopertests.ui.screens.userdetail.model.getGender
-import com.jujodevs.appdevelopertests.ui.theme.AppDeveloperTestsTheme
 
 @Composable
 fun UserDetailScreen(
@@ -170,13 +167,5 @@ fun UserDetailRow(
             }
             RowSpacer()
         }
-    }
-}
-
-@Preview
-@Composable
-private fun UserDetailBodyScreenPreview() {
-    AppDeveloperTestsTheme {
-        UserDetailBody(user = FakeUsers.users.first())
     }
 }
