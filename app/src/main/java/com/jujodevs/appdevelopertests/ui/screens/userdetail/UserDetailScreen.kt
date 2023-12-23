@@ -26,6 +26,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jujodevs.appdevelopertests.R
 import com.jujodevs.appdevelopertests.data.remote.FakeUsers
 import com.jujodevs.appdevelopertests.domain.User
+import com.jujodevs.appdevelopertests.ui.common.RowSpacer
 import com.jujodevs.appdevelopertests.ui.common.WebViewMap
 import com.jujodevs.appdevelopertests.ui.common.buildIFrameMap
 import com.jujodevs.appdevelopertests.ui.screens.userdetail.model.getGender
@@ -167,6 +168,7 @@ fun UserDetailRow(
             Box(modifier = Modifier.padding(vertical = 8.dp)) {
                 content()
             }
+            RowSpacer()
         }
     }
 }

@@ -44,6 +44,7 @@ import com.jujodevs.appdevelopertests.data.remote.FakeUsers
 import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.appdevelopertests.ui.DeveloperTestsScreen
 import com.jujodevs.appdevelopertests.ui.providers.BackgroudPhotoProvider
+import com.jujodevs.appdevelopertests.ui.theme.Neutral95
 import java.util.Locale
 import kotlinx.coroutines.delay
 
@@ -129,7 +130,7 @@ private fun TopBar(
             }
         },
         title = { Text(text = "${user.first} ${user.last}".uppercase(Locale.ROOT)) },
-        colors = topAppBarColors(),
+        colors = topAppBarColors(Neutral95),
         actions = {
             IconButton(onClick = { }) {
                 Icon(

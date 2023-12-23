@@ -1,6 +1,5 @@
 package com.jujodevs.appdevelopertests.ui.screens.users
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,6 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.jujodevs.appdevelopertests.R
 import com.jujodevs.appdevelopertests.domain.User
+import com.jujodevs.appdevelopertests.ui.common.RowSpacer
 
 @Composable
 fun UsersScreen(
@@ -107,12 +107,7 @@ fun UserItem(
                         .padding(16.dp),
                 )
             }
-            Spacer(
-                modifier = Modifier
-                    .height(1.dp)
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.outlineVariant),
-            )
+            RowSpacer()
         }
     }
 }
