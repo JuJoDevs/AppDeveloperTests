@@ -129,7 +129,7 @@ private fun TopBar(
                 )
             }
         },
-        title = { Text(text = "${user.first} ${user.last}".uppercase(Locale.ROOT)) },
+        title = { Text(text = user.name.uppercase(Locale.ROOT)) },
         colors = topAppBarColors(Neutral95),
         actions = {
             IconButton(onClick = { }) {
@@ -157,7 +157,7 @@ private fun UserAsyncImage(
         ) {
             AsyncImage(
                 model = user.picture,
-                contentDescription = user.first,
+                contentDescription = user.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .padding(horizontal = 12.dp)

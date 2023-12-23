@@ -6,8 +6,7 @@ object FakeUsers {
     val users = listOf(
         User(
             email = "1@example.com",
-            first = "John",
-            last = "Doe",
+            name = "John Doe",
             picture = "https://randomuser.me/api/portraits/men/1.jpg",
             gender = "male",
             registered = "2019-01-01T00:00:00.000Z",
@@ -17,8 +16,7 @@ object FakeUsers {
         ),
         User(
             email = "2@example.com",
-            first = "Jane",
-            last = "Doe",
+            name = "Jane Doe",
             picture = "https://randomuser.me/api/portraits/women/1.jpg",
             gender = "female",
             registered = "2019-01-01T00:00:00.000Z",
@@ -28,8 +26,7 @@ object FakeUsers {
         ),
         User(
             email = "3@example.com",
-            first = "Bob",
-            last = "Smith",
+            name = "Bob Smith",
             picture = "https://randomuser.me/api/portraits/men/2.jpg",
             gender = "male",
             registered = "2019-01-01T00:00:00.000Z",
@@ -39,8 +36,7 @@ object FakeUsers {
         ),
         User(
             email = "4@example.com",
-            first = "Alice",
-            last = "Smith",
+            name = "Alice Smith",
             picture = "https://randomuser.me/api/portraits/women/2.jpg",
             gender = "female",
             registered = "2019-01-01T00:00:00.000Z",
@@ -50,8 +46,7 @@ object FakeUsers {
         ),
         User(
             email = "5@example.com",
-            first = "Michael",
-            last = "Brown",
+            name = "Michael Brown",
             picture = "https://randomuser.me/api/portraits/men/3.jpg",
             gender = "male",
             registered = "2019-01-01T00:00:00.000Z",
@@ -61,8 +56,7 @@ object FakeUsers {
         ),
         User(
             email = "6@example.com",
-            first = "Emily",
-            last = "Brown",
+            name = "Emily Brown",
             picture = "https://randomuser.me/api/portraits/women/3.jpg",
             gender = "female",
             registered = "2019-01-01T00:00:00.000Z",
@@ -72,8 +66,7 @@ object FakeUsers {
         ),
         User(
             email = "7@example.com",
-            first = "David",
-            last = "Johnson",
+            name = "David Johnson",
             picture = "https://randomuser.me/api/portraits/men/4.jpg",
             gender = "male",
             registered = "2019-01-01T00:00:00.000Z",
@@ -83,8 +76,7 @@ object FakeUsers {
         ),
         User(
             email = "8@example.com",
-            first = "Sarah",
-            last = "Johnson",
+            name = "Sarah Johnson",
             picture = "https://randomuser.me/api/portraits/women/4.jpg",
             gender = "female",
             registered = "2019-01-01T00:00:00.000Z",
@@ -94,8 +86,7 @@ object FakeUsers {
         ),
         User(
             email = "9@example.com",
-            first = "William",
-            last = "Davis",
+            name = "William Davis",
             picture = "https://randomuser.me/api/portraits/men/5.jpg",
             gender = "male",
             registered = "2019-01-01T00:00:00.000Z",
@@ -105,8 +96,7 @@ object FakeUsers {
         ),
         User(
             email = "10@example.com",
-            first = "Olivia",
-            last = "Davis",
+            name = "Olivia Davis",
             picture = "https://randomuser.me/api/portraits/women/5.jpg",
             gender = "female",
             registered = "2019-01-01T00:00:00.000Z",

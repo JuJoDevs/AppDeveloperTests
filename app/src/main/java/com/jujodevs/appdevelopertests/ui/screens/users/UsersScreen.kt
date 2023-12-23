@@ -70,7 +70,7 @@ fun UserItem(
     ) {
         AsyncImage(
             model = user.picture,
-            contentDescription = user.first,
+            contentDescription = user.name,
             modifier = Modifier
                 .padding(16.dp)
                 .clip(CircleShape),
@@ -90,7 +90,7 @@ fun UserItem(
                         .weight(1f),
                 ) {
                     Text(
-                        text = "${user.first} ${user.last}",
+                        text = user.name,
                         style = MaterialTheme.typography.titleMedium,
                     )
                     Spacer(modifier = Modifier.height(8.dp))

@@ -68,7 +68,7 @@ fun UserDetailBody(
         item {
             UserDetailRow(
                 label = stringResource(R.string.first_and_last_name),
-                text = "${user.first} ${user.last}",
+                text = user.name,
                 painter = painterResource(id = R.drawable.user),
             )
             UserDetailRow(
