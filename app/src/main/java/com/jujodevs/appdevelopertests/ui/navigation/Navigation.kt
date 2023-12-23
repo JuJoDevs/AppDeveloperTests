@@ -34,10 +34,7 @@ fun NavGraphBuilder.userNav(
         composable(NavCommand.ContentType(Feature.USERS)) {
             UsersScreen(
                 onNavigateToDetail = { user ->
-                    onNavigationDetailClick(
-                        user,
-                        // NavCommand.ContentDetail(Feature.USERS).createRoute(email),
-                    )
+                    onNavigationDetailClick(user)
                 },
             )
         }
