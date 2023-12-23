@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class UsersViewModel @Inject constructor() : ViewModel() {
 
     companion object {
-        private const val FAKE_DELAY = 2000L
+        private const val FAKE_DELAY = 1000L
     }
 
     private val _state = MutableStateFlow(UiState())
