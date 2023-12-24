@@ -43,12 +43,6 @@ fun DeveloperTestsApp(
                 modifier = Modifier.padding(padding),
             ) {
                 Navigation(stateApp = stateApp)
-                /*{ user ->
-                    currentUser = user
-                    navHostController.navigate(
-                        NavCommand.ContentDetail(Feature.USERS).createRoute(user.id),
-                    )
-                }*/
             }
         },
         modifier = modifier,

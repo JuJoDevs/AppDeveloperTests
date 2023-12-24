@@ -78,7 +78,6 @@ fun UsersTopBar(
                 )
             }
         },
-        scrollBehavior = stateApp.scrollBehavior,
         modifier = modifier,
     )
 }
