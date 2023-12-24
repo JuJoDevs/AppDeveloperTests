@@ -33,6 +33,9 @@ ksp = "1.9.20-1.0.14"
 #Arrow
 arrow = "1.2.0"
 
+#Splashscreen
+splashscreen = "1.0.1"
+
 #Coil
 coil = "2.5.0"
 
@@ -82,6 +85,9 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 
 #Navigation
 navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+
+#Splashscreen
+splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 
 #Coil
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }

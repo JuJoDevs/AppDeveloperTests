@@ -104,6 +104,9 @@ dependencies {
     detektPlugins(libs.detetkcompose)
     detektPlugins(libs.detetkformatting)
 
+    // SPLASH
+    implementation(libs.splashscreen)
+
     // COIL
     implementation(libs.coil)
 

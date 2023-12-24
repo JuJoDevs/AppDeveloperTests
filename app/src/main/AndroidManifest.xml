@@ -14,12 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_developer_tests_round"
         android:hardwareAccelerated="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppDeveloperTests"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppDeveloperTests">
+            android:theme="@style/Theme.AppDeveloperTests.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
