@@ -16,7 +16,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = UltraLightGray,
     secondary = PurpleGrey80,
     tertiary = Pink80,
 )
@@ -61,7 +61,7 @@ fun AppDeveloperTestsTheme(
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = Color.TRANSPARENT
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 
@@ -70,4 +70,19 @@ fun AppDeveloperTestsTheme(
         typography = Typography,
         content = content,
     )
+}
+
+@Composable
+fun IsAppearanceLightStatusBars(isDark: Boolean = isSystemInDarkTheme()) {
+    val view = LocalView.current
+    val darkTheme = isSystemInDarkTheme()
+    SideEffect {
+        if (!darkTheme) {
+            val window = (view.context as Activity).window
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !isDark
+        } else {
+            val window = (view.context as Activity).window
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
+        }
+    }
 }

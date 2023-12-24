@@ -28,12 +28,15 @@ import com.jujodevs.appdevelopertests.ui.common.RowSpacer
 import com.jujodevs.appdevelopertests.ui.common.WebViewMap
 import com.jujodevs.appdevelopertests.ui.common.buildIFrameMap
 import com.jujodevs.appdevelopertests.ui.screens.userdetail.model.getGender
+import com.jujodevs.appdevelopertests.ui.theme.IsAppearanceLightStatusBars
 
 @Composable
 fun UserDetailScreen(
     modifier: Modifier = Modifier,
     viewModel: UserDetailViewModel = hiltViewModel()
 ) {
+    IsAppearanceLightStatusBars(true)
+
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(

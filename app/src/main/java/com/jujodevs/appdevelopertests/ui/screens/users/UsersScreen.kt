@@ -34,6 +34,7 @@ import coil.compose.AsyncImage
 import com.jujodevs.appdevelopertests.R
 import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.appdevelopertests.ui.common.RowSpacer
+import com.jujodevs.appdevelopertests.ui.theme.IsAppearanceLightStatusBars
 
 @Composable
 fun UsersScreen(
@@ -42,6 +43,8 @@ fun UsersScreen(
     viewModel: UsersViewModel = hiltViewModel(),
     onNavigateToDetail: (User) -> Unit
 ) {
+    IsAppearanceLightStatusBars()
+
     val users = viewModel.userPagingFlow.collectAsLazyPagingItems()
     var blockOnce by rememberSaveable { mutableStateOf(true) }
 
