@@ -13,9 +13,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 
+/**
+ * This version of [DropdownMenu] is a copy with 0 vertical padding
+ */
 @Suppress("ModifierParameter")
 @Composable
-fun DropdownMenuDeveloperTests(
+fun DropdownMenu0VerticalPadding(
     expanded: Boolean,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier,

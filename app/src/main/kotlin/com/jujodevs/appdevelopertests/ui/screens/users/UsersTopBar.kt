@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.jujodevs.appdevelopertests.R
 import com.jujodevs.appdevelopertests.ui.common.AutoFocusingTextField
-import com.jujodevs.appdevelopertests.ui.common.dropdownmenu.DropdownMenuDeveloperTests
+import com.jujodevs.appdevelopertests.ui.common.dropdownmenu.DropdownMenu0VerticalPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,7 +55,7 @@ fun UsersTopBar(
                     tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
-            DropdownMenuDeveloperTests(
+            DropdownMenu0VerticalPadding(
                 expanded = expand,
                 onDismissRequest = { expand = false },
             ) {
@@ -66,7 +66,12 @@ fun UsersTopBar(
                     singleLine = true,
                     keyboardActions = KeyboardActions(onDone = { expand = false }),
                     trailingIcon = {
-                        IconButton(onClick = { onFindChange("") }) {
+                        IconButton(
+                            onClick = {
+                                onFindChange("")
+                                expand = false
+                            },
+                        ) {
                             Icon(imageVector = Icons.Default.Close, contentDescription = null)
                         }
                     },
