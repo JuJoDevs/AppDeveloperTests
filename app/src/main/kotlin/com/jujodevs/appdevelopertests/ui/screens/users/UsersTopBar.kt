@@ -19,14 +19,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.jujodevs.appdevelopertests.R
+import com.jujodevs.appdevelopertests.ui.DeveloperTestsAppState
 import com.jujodevs.appdevelopertests.ui.common.AutoFocusingTextField
 import com.jujodevs.appdevelopertests.ui.common.dropdownmenu.DropdownMenu0VerticalPadding
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UsersTopBar(
-    findText: String,
-    onFindChange: (String) -> Unit,
+    stateApp: DeveloperTestsAppState,
     modifier: Modifier = Modifier,
     onNavigateBack: () -> Unit = {}
 ) {
@@ -60,15 +60,15 @@ fun UsersTopBar(
                 onDismissRequest = { expand = false },
             ) {
                 AutoFocusingTextField(
-                    value = findText,
-                    onValueChange = { onFindChange(it) },
+                    value = stateApp.findText.value,
+                    onValueChange = { stateApp.findText.value = it },
                     label = { Text(text = stringResource(R.string.find)) },
                     singleLine = true,
                     keyboardActions = KeyboardActions(onDone = { expand = false }),
                     trailingIcon = {
                         IconButton(
                             onClick = {
-                                onFindChange("")
+                                stateApp.findText.value = ""
                                 expand = false
                             },
                         ) {
@@ -78,6 +78,7 @@ fun UsersTopBar(
                 )
             }
         },
+        scrollBehavior = stateApp.scrollBehavior,
         modifier = modifier,
     )
 }

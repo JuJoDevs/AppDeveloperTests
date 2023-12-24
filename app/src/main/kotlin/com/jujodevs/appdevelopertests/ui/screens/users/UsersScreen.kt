@@ -33,27 +33,27 @@ import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.jujodevs.appdevelopertests.R
 import com.jujodevs.appdevelopertests.domain.User
+import com.jujodevs.appdevelopertests.ui.DeveloperTestsAppState
 import com.jujodevs.appdevelopertests.ui.common.RowSpacer
 import com.jujodevs.appdevelopertests.ui.theme.IsAppearanceLightStatusBars
 
 @Composable
 fun UsersScreen(
-    findText: String,
+    appState: DeveloperTestsAppState,
     modifier: Modifier = Modifier,
-    viewModel: UsersViewModel = hiltViewModel(),
-    onNavigateToDetail: (User) -> Unit
+    viewModel: UsersViewModel = hiltViewModel()
 ) {
     IsAppearanceLightStatusBars()
 
     val users = viewModel.userPagingFlow.collectAsLazyPagingItems()
     var blockOnce by rememberSaveable { mutableStateOf(true) }
 
-    LaunchedEffect(key1 = findText) {
+    LaunchedEffect(key1 = appState.findText.value) {
         if (blockOnce) {
             blockOnce = false
             return@LaunchedEffect
         }
-        viewModel.findUsers(findText)
+        viewModel.findUsers(appState.findText.value)
         users.refresh()
     }
 
@@ -77,7 +77,8 @@ fun UsersScreen(
                                 user = user,
                                 onNavigateToDetail = {
                                     blockOnce = true
-                                    onNavigateToDetail(it)
+                                    appState.currentUser.value = user
+                                    appState.navToDetail(it)
                                 },
                             )
                         }

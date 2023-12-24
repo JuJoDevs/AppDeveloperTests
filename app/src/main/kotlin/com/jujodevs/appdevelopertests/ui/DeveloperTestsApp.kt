@@ -6,21 +6,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.appdevelopertests.ui.navigation.Feature
 import com.jujodevs.appdevelopertests.ui.navigation.NavCommand
 import com.jujodevs.appdevelopertests.ui.navigation.Navigation
@@ -28,27 +21,19 @@ import com.jujodevs.appdevelopertests.ui.screens.userdetail.UserDetailTopBar
 import com.jujodevs.appdevelopertests.ui.screens.users.UsersTopBar
 import com.jujodevs.appdevelopertests.ui.theme.AppDeveloperTestsTheme
 
-private const val ExpandedAnimationTime = 2000
 
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DeveloperTestsApp(
     modifier: Modifier = Modifier,
+    stateApp: DeveloperTestsAppState = rememberDeveloperTestsAppState(),
     onFinishApp: () -> Unit = {}
 ) {
-    val navHostController = rememberNavController()
-    val navBackStackEntry by navHostController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: ""
-    var currentUser by remember { mutableStateOf(User()) }
-    var findText by remember { mutableStateOf("") }
-
     Scaffold(
         topBar = {
             TopBar(
-                currentRoute = currentRoute,
-                currentUser = currentUser,
-                onBack = { navHostController.popBackStack() },
-                findText = findText,
-                onFindChange = { findText = it },
+                stateApp = stateApp,
                 onFinishApp = onFinishApp,
             )
         },
@@ -57,12 +42,13 @@ fun DeveloperTestsApp(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.padding(padding),
             ) {
-                Navigation(navHostController, findText) { user ->
+                Navigation(stateApp = stateApp)
+                /*{ user ->
                     currentUser = user
                     navHostController.navigate(
                         NavCommand.ContentDetail(Feature.USERS).createRoute(user.id),
                     )
-                }
+                }*/
             }
         },
         modifier = modifier,
@@ -71,40 +57,27 @@ fun DeveloperTestsApp(
 
 @Composable
 private fun TopBar(
-    currentRoute: String?,
-    currentUser: User,
-    onBack: () -> Unit,
-    findText: String,
-    onFindChange: (String) -> Unit,
+    stateApp: DeveloperTestsAppState,
     modifier: Modifier = Modifier,
     onFinishApp: () -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
-
-    LaunchedEffect(key1 = currentRoute) {
-        when (currentRoute) {
-            NavCommand.ContentType(Feature.USERS).route -> { expanded = false }
-            NavCommand.ContentDetail(Feature.USERS).route -> { expanded = true }
-        }
-    }
-
     Box(
         modifier = modifier
-            .animateContentSize(tween(ExpandedAnimationTime))
-            .height(if (expanded) 242.dp else 88.dp),
+            .animateContentSize(tween(stateApp.expandedAnimationTime))
+            .height(
+                if (stateApp.currentRoute == NavCommand.ContentDetail(Feature.USERS).route) 242.dp
+                else 88.dp
+            ),
     ) {
-        when (currentRoute) {
+        when (stateApp.currentRoute) {
             NavCommand.ContentType(Feature.USERS).route -> {
                 UsersTopBar(
-                    findText = findText,
-                    onFindChange = onFindChange,
+                    stateApp = stateApp,
                     onNavigateBack = onFinishApp,
                 )
             }
             NavCommand.ContentDetail(Feature.USERS).route -> {
-                UserDetailTopBar(user = currentUser) {
-                    onBack()
-                }
+                UserDetailTopBar(stateApp = stateApp)
             }
         }
     }

@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         splashScreen()
         setContent {
             DeveloperTestsScreen {
-                DeveloperTestsApp() { finish() }
+                DeveloperTestsApp { finish() }
             }
         }
     }

@@ -38,18 +38,18 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.jujodevs.appdevelopertests.R
 import com.jujodevs.appdevelopertests.domain.User
+import com.jujodevs.appdevelopertests.ui.DeveloperTestsAppState
 import com.jujodevs.appdevelopertests.ui.providers.BackgroudPhotoProvider
 import com.jujodevs.appdevelopertests.ui.theme.Neutral95
-import java.util.Locale
 import kotlinx.coroutines.delay
+import java.util.Locale
 
 private const val ImageDelay = 1500L
 
 @Composable
 fun UserDetailTopBar(
-    user: User,
-    modifier: Modifier = Modifier,
-    onBackDetail: () -> Unit
+    stateApp: DeveloperTestsAppState,
+    modifier: Modifier = Modifier
 ) {
     var showUserImage by rememberSaveable { mutableStateOf(false) }
 
@@ -60,11 +60,11 @@ fun UserDetailTopBar(
 
     Box(modifier = modifier) {
         Column {
-            BackgroundImage(user)
+            BackgroundImage(stateApp.currentUser.value)
             BottomBar()
         }
-        TopBar(onBackDetail, user)
-        UserAsyncImage(boxScope = this, user = user, showUserImage = showUserImage)
+        TopBar(stateApp = stateApp)
+        UserAsyncImage(boxScope = this, user = stateApp.currentUser.value, showUserImage = showUserImage)
     }
 }
 
@@ -111,20 +111,19 @@ private fun BottomAction(@DrawableRes drawable: Int, modifier: Modifier = Modifi
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun TopBar(
-    onBackDetail: () -> Unit,
-    user: User,
+    stateApp: DeveloperTestsAppState,
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
         navigationIcon = {
-            IconButton(onClick = onBackDetail) {
+            IconButton(onClick = {  stateApp.popBackStack() }) {
                 Icon(
                     painter = painterResource(id = R.drawable.back),
                     contentDescription = null,
                 )
             }
         },
-        title = { Text(text = user.name.uppercase(Locale.ROOT)) },
+        title = { Text(text = stateApp.currentUser.value.name.uppercase(Locale.ROOT)) },
         colors = topAppBarColors(Neutral95),
         actions = {
             IconButton(onClick = { }) {
