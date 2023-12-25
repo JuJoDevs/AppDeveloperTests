@@ -1,4 +1,4 @@
-package com.jujodevs.appdevelopertests.data.local
+package com.jujodevs.appdevelopertests.framework.database
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
@@ -12,9 +12,6 @@ interface UserDao {
 
     @Query("SELECT * FROM UserEntity")
     fun pagingSource(): PagingSource<Int, UserEntity>
-
-    @Query("DELETE FROM UserEntity")
-    suspend fun clearAll()
 
     @Query("SELECT * FROM UserEntity WHERE id = :id")
     suspend fun getUser(id: Int): UserEntity?

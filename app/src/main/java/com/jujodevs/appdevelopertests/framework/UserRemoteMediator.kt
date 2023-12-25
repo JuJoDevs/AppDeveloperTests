@@ -1,20 +1,21 @@
-package com.jujodevs.appdevelopertests.data.remote
+package com.jujodevs.appdevelopertests.framework
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
-import com.jujodevs.appdevelopertests.data.local.UserDatabase
-import com.jujodevs.appdevelopertests.data.local.UserEntity
-import com.jujodevs.appdevelopertests.data.remote.mapper.toUserEntity
+import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
+import com.jujodevs.appdevelopertests.framework.database.UserDao
+import com.jujodevs.appdevelopertests.framework.database.UserEntity
+import com.jujodevs.appdevelopertests.framework.mapper.toUserEntity
 import java.io.IOException
+import javax.inject.Inject
 import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
-class UserRemoteMediator(
-    private val userDb: UserDatabase,
-    private val userApi: UserApi
+class UserRemoteMediator @Inject constructor(
+    private val userDao: UserDao,
+    private val userRemote: UserRemoteDataSource
 ) : RemoteMediator<Int, UserEntity>() {
     override suspend fun load(
         loadType: LoadType,
@@ -34,17 +35,15 @@ class UserRemoteMediator(
                 }
             }
 
-            val users = userApi.getUsers(
+            val users = userRemote.getUsers(
                 page = loadKey,
                 results = state.config.pageSize,
             )
 
-            userDb.withTransaction {
-                userDb.dao.upsertAll(users.toUserEntity(loadKey))
-            }
+            userDao.upsertAll(users.toUserEntity(loadKey))
 
             MediatorResult.Success(
-                endOfPaginationReached = users.results.isEmpty(),
+                endOfPaginationReached = users.isEmpty(),
             )
         } catch (e: IOException) {
             MediatorResult.Error(e)
@@ -52,4 +51,5 @@ class UserRemoteMediator(
             MediatorResult.Error(e)
         }
     }
+    fun pagingSource() = userDao.pagingSource()
 }
