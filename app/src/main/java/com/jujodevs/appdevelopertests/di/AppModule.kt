@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.jujodevs.appdevelopertests.di
 
 import android.content.Context
@@ -5,10 +7,16 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
-import com.jujodevs.appdevelopertests.data.local.UserDatabase
-import com.jujodevs.appdevelopertests.data.local.UserEntity
-import com.jujodevs.appdevelopertests.data.remote.UserApi
-import com.jujodevs.appdevelopertests.data.remote.UserRemoteMediator
+import com.jujodevs.appdevelopertests.data.datasources.UserLocalDataSource
+import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
+import com.jujodevs.appdevelopertests.framework.UserRemoteMediator
+import com.jujodevs.appdevelopertests.framework.database.UserDao
+import com.jujodevs.appdevelopertests.framework.database.UserDatabase
+import com.jujodevs.appdevelopertests.framework.database.UserDatabaseDataSource
+import com.jujodevs.appdevelopertests.framework.database.UserEntity
+import com.jujodevs.appdevelopertests.framework.network.UserApi
+import com.jujodevs.appdevelopertests.framework.network.UserServerDataSource
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,7 +46,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUserDao(userDatabase: UserDatabase) = userDatabase.dao
+    fun provideUserDao(userDatabase: UserDatabase): UserDao = userDatabase.dao
 
     @Provides
     @Singleton
@@ -68,10 +76,20 @@ object AppModule {
     @OptIn(ExperimentalPagingApi::class)
     @Provides
     @Singleton
-    fun provideUserPager(userDb: UserDatabase, userApi: UserApi): Pager<Int, UserEntity> =
+    fun provideUserPager(userRemoteMediator: UserRemoteMediator): Pager<Int, UserEntity> =
         Pager(
             config = PagingConfig(pageSize = 20),
-            remoteMediator = UserRemoteMediator(userDb, userApi),
-            pagingSourceFactory = { userDb.dao.pagingSource() },
+            remoteMediator = userRemoteMediator,
+            pagingSourceFactory = { userRemoteMediator.pagingSource() },
         )
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class AppDataModule {
+    @Binds
+    abstract fun bindsLocalDataSource(impl: UserDatabaseDataSource): UserLocalDataSource
+
+    @Binds
+    abstract fun bindsRemoteDataSource(impl: UserServerDataSource): UserRemoteDataSource
 }

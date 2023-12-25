@@ -1,4 +1,4 @@
-package com.jujodevs.appdevelopertests.data.local
+package com.jujodevs.appdevelopertests.framework.database
 
 import androidx.room.Entity
 import androidx.room.Index
