@@ -3,18 +3,18 @@ package com.jujodevs.appdevelopertests.ui.screens.userdetail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.jujodevs.appdevelopertests.data.repository.UserRepository
 import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.appdevelopertests.ui.navigation.NavArg
+import com.jujodevs.appdevelopertests.usecases.GetUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class UserDetailViewModel @Inject constructor(
-    userRepository: UserRepository,
+    getUserUseCase: GetUserUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -25,7 +25,7 @@ class UserDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.value = UserDetailUiState(loading = true)
             savedStateHandle.get<Int>(NavArg.Id.key)?.let {
-                _uiState.value = UserDetailUiState(user = userRepository.getUser(it))
+                _uiState.value = UserDetailUiState(user = getUserUseCase(it))
             }
         }
     }

@@ -9,6 +9,8 @@ import androidx.paging.PagingConfig
 import androidx.room.Room
 import com.jujodevs.appdevelopertests.data.datasources.UserLocalDataSource
 import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
+import com.jujodevs.appdevelopertests.data.repository.UserRepository
+import com.jujodevs.appdevelopertests.domain.repository.UserRepositoryContract
 import com.jujodevs.appdevelopertests.framework.UserRemoteMediator
 import com.jujodevs.appdevelopertests.framework.database.UserDao
 import com.jujodevs.appdevelopertests.framework.database.UserDatabase
@@ -22,12 +24,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 private const val ResponseTimeOutSeconds: Long = 100
 
@@ -92,4 +94,7 @@ abstract class AppDataModule {
 
     @Binds
     abstract fun bindsRemoteDataSource(impl: UserServerDataSource): UserRemoteDataSource
+
+    @Binds
+    abstract fun bindsUserRepository(impl: UserRepository): UserRepositoryContract
 }

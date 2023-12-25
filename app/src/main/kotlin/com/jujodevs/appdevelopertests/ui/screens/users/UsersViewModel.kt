@@ -4,21 +4,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.filter
-import com.jujodevs.appdevelopertests.data.repository.UserRepository
+import com.jujodevs.appdevelopertests.usecases.GetPagingUsersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 @HiltViewModel
 class UsersViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val getPagingUsersUseCase: GetPagingUsersUseCase
 ) : ViewModel() {
 
-    var userPagingFlow = userRepository.pagingUser().cachedIn(viewModelScope)
+    var userPagingFlow = getPagingUsersUseCase().cachedIn(viewModelScope)
 
     fun findUsers(text: String) {
-        userPagingFlow = userRepository
-            .pagingUser()
+        userPagingFlow = getPagingUsersUseCase()
             .map { pagingData ->
                 pagingData.filter {
                     it.name.contains(text, true) || it.email.contains(text, true)
