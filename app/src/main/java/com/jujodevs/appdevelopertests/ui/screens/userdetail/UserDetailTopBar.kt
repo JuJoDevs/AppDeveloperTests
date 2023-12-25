@@ -41,8 +41,8 @@ import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.appdevelopertests.ui.DeveloperTestsAppState
 import com.jujodevs.appdevelopertests.ui.providers.BackgroudPhotoProvider
 import com.jujodevs.appdevelopertests.ui.theme.Neutral95
-import kotlinx.coroutines.delay
 import java.util.Locale
+import kotlinx.coroutines.delay
 
 private const val ImageDelay = 1500L
 
@@ -64,7 +64,11 @@ fun UserDetailTopBar(
             BottomBar()
         }
         TopBar(stateApp = stateApp)
-        UserAsyncImage(boxScope = this, user = stateApp.currentUser.value, showUserImage = showUserImage)
+        UserAsyncImage(
+            boxScope = this,
+            user = stateApp.currentUser.value,
+            showUserImage = showUserImage,
+        )
     }
 }
 
@@ -116,7 +120,7 @@ private fun TopBar(
 ) {
     TopAppBar(
         navigationIcon = {
-            IconButton(onClick = {  stateApp.popBackStack() }) {
+            IconButton(onClick = { stateApp.popBackStack() }) {
                 Icon(
                     painter = painterResource(id = R.drawable.back),
                     contentDescription = null,

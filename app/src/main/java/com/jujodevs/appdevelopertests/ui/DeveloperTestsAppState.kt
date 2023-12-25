@@ -15,7 +15,7 @@ import com.jujodevs.appdevelopertests.ui.navigation.NavCommand
 fun rememberDeveloperTestsAppState(
     navHostController: NavHostController = rememberNavController(),
     currentUser: MutableState<User> = remember { mutableStateOf(User()) },
-    findText: MutableState<String> = remember { mutableStateOf("") },
+    findText: MutableState<String> = remember { mutableStateOf("") }
 ): DeveloperTestsAppState =
     remember(navHostController, currentUser, findText) {
         DeveloperTestsAppState(navHostController, currentUser, findText)

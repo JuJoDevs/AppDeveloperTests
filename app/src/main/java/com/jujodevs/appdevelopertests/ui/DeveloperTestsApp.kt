@@ -21,8 +21,6 @@ import com.jujodevs.appdevelopertests.ui.screens.userdetail.UserDetailTopBar
 import com.jujodevs.appdevelopertests.ui.screens.users.UsersTopBar
 import com.jujodevs.appdevelopertests.ui.theme.AppDeveloperTestsTheme
 
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DeveloperTestsApp(
@@ -59,8 +57,11 @@ private fun TopBar(
         modifier = modifier
             .animateContentSize(tween(stateApp.expandedAnimationTime))
             .height(
-                if (stateApp.currentRoute == NavCommand.ContentDetail(Feature.USERS).route) 242.dp
-                else 88.dp
+                if (stateApp.currentRoute == NavCommand.ContentDetail(Feature.USERS).route) {
+                    242.dp
+                } else {
+                    88.dp
+                },
             ),
     ) {
         when (stateApp.currentRoute) {
