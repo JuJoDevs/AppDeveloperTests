@@ -45,5 +45,3 @@ fun UserEntity.entityToUser() = User(
     latitude = latitude,
     longitude = longitude,
 )
-
-fun List<UserEntity>.entityToUser() = map { it.entityToUser() }

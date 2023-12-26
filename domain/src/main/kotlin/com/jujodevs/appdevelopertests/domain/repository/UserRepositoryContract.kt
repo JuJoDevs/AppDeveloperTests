@@ -1,6 +1,6 @@
 package com.jujodevs.appdevelopertests.domain.repository
 
-import androidx.paging.PagingData
+import androidx.paging.PagingData // without Android dependencies
 import com.jujodevs.appdevelopertests.domain.User
 import kotlinx.coroutines.flow.Flow
 

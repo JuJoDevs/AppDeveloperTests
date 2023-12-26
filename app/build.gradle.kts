@@ -66,6 +66,10 @@ ktlint {
 
 dependencies {
 
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":usecases"))
+
     implementation(libs.core.ktx)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.lifecycle.viewmodel.compose)
@@ -84,6 +88,7 @@ dependencies {
 
     // PAGING
     implementation(libs.paging)
+    implementation(libs.paging.common)
     implementation(libs.paging.compose)
 
     // RETROFIT
@@ -116,6 +121,9 @@ dependencies {
     implementation(libs.room.paging)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.paging.common)
+
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))

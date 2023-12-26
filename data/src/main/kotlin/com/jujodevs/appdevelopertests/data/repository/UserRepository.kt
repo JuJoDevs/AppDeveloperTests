@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(
     private val userLocalDataSource: UserLocalDataSource
-): UserRepositoryContract {
+) : UserRepositoryContract {
     override fun pagingUser(): Flow<PagingData<User>> =
         userLocalDataSource.pagingUser()
 

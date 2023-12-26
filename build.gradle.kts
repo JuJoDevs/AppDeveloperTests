@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.io.gitlab.arturbosch.detekt)
     alias(libs.plugins.org.jlleitschuh.gradle.ktlint)
+    alias(libs.plugins.org.jetbrains.kotlin.jvm) apply false
 }
