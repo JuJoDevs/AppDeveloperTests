@@ -15,6 +15,12 @@ dependencies {
     // DETEKT
     detektPlugins(libs.detetkcompose)
     detektPlugins(libs.detetkformatting)
+
+    testImplementation(project(":testshared"))
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.paging.common)
+    testImplementation(libs.mockk)
 }
 
 java {

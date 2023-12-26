@@ -1,11 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":usecases")
-
-include(":data")
-
-include(":domain")
-
 pluginManagement {
     repositories {
         google()
@@ -13,6 +7,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -20,6 +15,11 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
 rootProject.name = "AppDeveloperTests"
+
 include(":app")
+include(":domain")
+include(":data")
+include(":usecases")
+include(":testshared")
+include(":androidtestshared")

@@ -120,10 +120,14 @@ dependencies {
     ksp(libs.room.compiler)
     implementation(libs.room.paging)
 
+    testImplementation(project(":testshared"))
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.paging.common)
+    testImplementation(libs.mockk)
 
+    androidTestImplementation(project(":testshared"))
+    androidTestImplementation(project(":androidtestshared"))
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
