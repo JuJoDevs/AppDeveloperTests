@@ -1,6 +1,6 @@
-package com.jujodevs.appdevelopertests.framework.network
+package com.jujodevs.appdevelopertests.data.network
 
-import com.jujodevs.appdevelopertests.framework.network.dto.UsersDto
+import com.jujodevs.appdevelopertests.data.network.dto.UsersDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

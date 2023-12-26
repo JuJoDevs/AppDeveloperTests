@@ -1,9 +1,9 @@
-package com.jujodevs.appdevelopertests.framework.mapper
+package com.jujodevs.appdevelopertests.data.mapper
 
 import com.jujodevs.appdevelopertests.domain.User
-import com.jujodevs.appdevelopertests.framework.database.UserEntity
-import com.jujodevs.appdevelopertests.framework.network.dto.UserDto
-import com.jujodevs.appdevelopertests.framework.network.dto.UsersDto
+import com.jujodevs.appdevelopertests.data.database.UserEntity
+import com.jujodevs.appdevelopertests.data.network.dto.UserDto
+import com.jujodevs.appdevelopertests.data.network.dto.UsersDto
 
 fun User.toUserEntity(page: Int) = UserEntity(
     id = 0,

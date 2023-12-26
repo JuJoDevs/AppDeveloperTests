@@ -1,4 +1,4 @@
-package com.jujodevs.appdevelopertests.framework.database
+package com.jujodevs.appdevelopertests.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,4 +1,4 @@
-package com.jujodevs.appdevelopertests.framework.network.dto
+package com.jujodevs.appdevelopertests.data.network.dto
 
 import com.google.gson.annotations.SerializedName
 

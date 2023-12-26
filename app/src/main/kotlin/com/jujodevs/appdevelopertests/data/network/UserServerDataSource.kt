@@ -1,8 +1,8 @@
-package com.jujodevs.appdevelopertests.framework.network
+package com.jujodevs.appdevelopertests.data.network
 
 import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
 import com.jujodevs.appdevelopertests.di.IO
-import com.jujodevs.appdevelopertests.framework.mapper.dtoToUser
+import com.jujodevs.appdevelopertests.data.mapper.dtoToUser
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

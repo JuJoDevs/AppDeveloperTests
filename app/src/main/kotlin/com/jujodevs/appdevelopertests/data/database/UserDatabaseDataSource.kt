@@ -1,4 +1,4 @@
-package com.jujodevs.appdevelopertests.framework.database
+package com.jujodevs.appdevelopertests.data.database
 
 import androidx.paging.Pager
 import androidx.paging.PagingData
@@ -6,8 +6,8 @@ import androidx.paging.map
 import com.jujodevs.appdevelopertests.data.datasources.UserLocalDataSource
 import com.jujodevs.appdevelopertests.di.IO
 import com.jujodevs.appdevelopertests.domain.User
-import com.jujodevs.appdevelopertests.framework.mapper.entityToUser
-import com.jujodevs.appdevelopertests.framework.mapper.toUserEntity
+import com.jujodevs.appdevelopertests.data.mapper.entityToUser
+import com.jujodevs.appdevelopertests.data.mapper.toUserEntity
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow

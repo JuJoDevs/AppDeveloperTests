@@ -1,13 +1,13 @@
-package com.jujodevs.appdevelopertests.framework
+package com.jujodevs.appdevelopertests.data
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
-import com.jujodevs.appdevelopertests.framework.database.UserDao
-import com.jujodevs.appdevelopertests.framework.database.UserEntity
-import com.jujodevs.appdevelopertests.framework.mapper.toUserEntity
+import com.jujodevs.appdevelopertests.data.database.UserDao
+import com.jujodevs.appdevelopertests.data.database.UserEntity
+import com.jujodevs.appdevelopertests.data.mapper.toUserEntity
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
