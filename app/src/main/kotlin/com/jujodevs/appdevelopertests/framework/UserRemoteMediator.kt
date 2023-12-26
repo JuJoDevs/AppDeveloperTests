@@ -8,9 +8,9 @@ import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
 import com.jujodevs.appdevelopertests.framework.database.UserDao
 import com.jujodevs.appdevelopertests.framework.database.UserEntity
 import com.jujodevs.appdevelopertests.framework.mapper.toUserEntity
+import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
-import retrofit2.HttpException
 
 @OptIn(ExperimentalPagingApi::class)
 class UserRemoteMediator @Inject constructor(
@@ -23,8 +23,7 @@ class UserRemoteMediator @Inject constructor(
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
-                LoadType.REFRESH -> 1
-                LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+                LoadType.REFRESH, LoadType.PREPEND -> 1
                 LoadType.APPEND -> {
                     val lastItem = state.lastItemOrNull()
                     if (lastItem == null) {
