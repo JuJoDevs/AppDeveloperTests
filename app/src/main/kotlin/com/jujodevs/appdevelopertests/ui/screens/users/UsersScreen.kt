@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
@@ -41,7 +42,7 @@ import com.jujodevs.appdevelopertests.ui.theme.IsAppearanceLightStatusBars
 fun UsersScreen(
     appState: DeveloperTestsAppState,
     modifier: Modifier = Modifier,
-    viewModel: UsersViewModel = hiltViewModel()
+    viewModel: UsersViewModel = hiltViewModel(),
 ) {
     IsAppearanceLightStatusBars()
 
@@ -93,20 +94,26 @@ fun UsersScreen(
 fun UserItem(
     user: User,
     modifier: Modifier = Modifier,
-    onNavigateToDetail: (User) -> Unit
+    onNavigateToDetail: (User) -> Unit,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onNavigateToDetail(user) },
     ) {
-        AsyncImage(
-            model = user.picture,
-            contentDescription = user.name,
+        Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
-                .padding(16.dp)
-                .clip(CircleShape),
-        )
+                .sizeIn(minWidth = 84.dp, minHeight = 78.dp)
+                .padding(16.dp),
+        ) {
+            AsyncImage(
+                model = user.picture,
+                contentDescription = user.name,
+                modifier = Modifier
+                    .clip(CircleShape),
+            )
+        }
         Column(
             horizontalAlignment = Alignment.End,
             modifier = Modifier
