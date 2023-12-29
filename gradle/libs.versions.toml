@@ -54,6 +54,8 @@ detekt-compose = "0.3.2"
 #Test
 junit = "4.13.2"
 mockk = "1.13.5"
+turbine = "1.0.0"
+kluent = "1.73"
 
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
@@ -121,6 +123,10 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk" }
+mockk-agent = { group = "io.mockk", name = "mockk-agent", version.ref = "mockk" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+kluent = { group = "org.amshove.kluent", name = "kluent", version.ref = "kluent" }
 
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }

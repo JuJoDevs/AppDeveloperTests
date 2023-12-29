@@ -53,6 +53,8 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            merges += "META-INF/LICENSE.md"
+            merges += "META-INF/LICENSE-notice.md"
         }
     }
 }
@@ -123,15 +125,18 @@ dependencies {
     testImplementation(project(":testshared"))
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.paging.common)
     testImplementation(libs.mockk)
+    testImplementation(libs.kluent)
+    testImplementation(libs.paging.testing)
+    testImplementation(libs.turbine)
 
     androidTestImplementation(project(":testshared"))
-    androidTestImplementation(project(":androidtestshared"))
+    androidTestImplementation(project(":apptestshared"))
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
+    androidTestImplementation(libs.turbine)
 
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)

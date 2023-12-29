@@ -1,4 +1,4 @@
-package com.jujodevs.appdevelopertests.testshared.datasource
+package com.jujodevs.appdevelopertests.testshared.data.datasource
 
 import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
 import com.jujodevs.appdevelopertests.domain.User

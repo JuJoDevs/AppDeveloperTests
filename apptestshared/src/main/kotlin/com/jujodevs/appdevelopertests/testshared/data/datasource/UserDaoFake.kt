@@ -1,4 +1,4 @@
-package com.jujodevs.appdevelopertests.testshared.datasource
+package com.jujodevs.appdevelopertests.testshared.data.datasource
 
 import android.annotation.SuppressLint
 import androidx.paging.PagingSource

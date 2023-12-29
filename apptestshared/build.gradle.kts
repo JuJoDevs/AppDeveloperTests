@@ -40,7 +40,8 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":usecases"))
     implementation(project(":testshared"))
-    implementation(libs.kotlinx.coroutines.core)
+
+    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.paging.common)
     implementation(libs.paging.testing)
     implementation(libs.javax.inject)

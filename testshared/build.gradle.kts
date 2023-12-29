@@ -12,9 +12,12 @@ java {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(libs.junit)
+    implementation(libs.kotlinx.coroutines.test)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.paging.common)
     implementation(libs.javax.inject)
+    implementation(libs.mockk)
 
     // DETEKT
     detektPlugins(libs.detetkcompose)
