@@ -1,12 +1,17 @@
 package com.jujodevs.appdevelopertests
 
+import androidx.paging.testing.asSnapshot
 import com.jujodevs.appdevelopertests.data.repository.UserRepository
 import com.jujodevs.appdevelopertests.testshared.data.datasource.UserRemoteDataSourceFake
+import com.jujodevs.testshared.FakeUsers
 import com.jujodevs.testshared.testrules.CoroutinesTestRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlinx.coroutines.test.runTest
+import org.amshove.kluent.shouldBeEqualTo
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import javax.inject.Inject
 
 @HiltAndroidTest
@@ -27,5 +32,17 @@ class ExampleInstrumentedTest {
     @Before
     fun setup() {
         hiltRule.inject()
+    }
+
+    @Test
+    fun testHiltWorks() = runTest {
+        val expectedUsers = FakeUsers.users
+
+        val pagingUsers = userRepository.pagingUser()
+        val result = pagingUsers.asSnapshot {
+            refresh()
+        }
+
+        result shouldBeEqualTo expectedUsers
     }
 }

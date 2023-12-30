@@ -7,17 +7,17 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
-import com.jujodevs.appdevelopertests.data.datasources.UserLocalDataSource
-import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
-import com.jujodevs.appdevelopertests.data.repository.UserRepository
-import com.jujodevs.appdevelopertests.domain.repository.UserRepositoryContract
 import com.jujodevs.appdevelopertests.data.UserRemoteMediator
 import com.jujodevs.appdevelopertests.data.database.UserDao
 import com.jujodevs.appdevelopertests.data.database.UserDatabase
 import com.jujodevs.appdevelopertests.data.database.UserDatabaseDataSource
 import com.jujodevs.appdevelopertests.data.database.UserEntity
+import com.jujodevs.appdevelopertests.data.datasources.UserLocalDataSource
+import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
 import com.jujodevs.appdevelopertests.data.network.UserApi
 import com.jujodevs.appdevelopertests.data.network.UserServerDataSource
+import com.jujodevs.appdevelopertests.data.repository.UserRepository
+import com.jujodevs.appdevelopertests.domain.repository.UserRepositoryContract
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -36,15 +36,6 @@ private const val ResponseTimeOutSeconds: Long = 100
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    @Provides
-    @Singleton
-    fun provideUserDatabase(@ApplicationContext context: Context): UserDatabase =
-        Room.databaseBuilder(
-            context,
-            UserDatabase::class.java,
-            "user.db",
-        ).build()
 
     @Provides
     @Singleton
@@ -84,6 +75,19 @@ object AppModule {
             remoteMediator = userRemoteMediator,
             pagingSourceFactory = { userRemoteMediator.pagingSource() },
         )
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object AppExtrasModule {
+    @Provides
+    @Singleton
+    fun provideUserDatabase(@ApplicationContext context: Context): UserDatabase =
+        Room.databaseBuilder(
+            context,
+            UserDatabase::class.java,
+            "user.db",
+        ).build()
 }
 
 @Module

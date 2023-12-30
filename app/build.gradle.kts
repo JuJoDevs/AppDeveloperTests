@@ -137,6 +137,7 @@ dependencies {
     androidTestImplementation(libs.rules)
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.dagger.hilt.compiler)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.paging.testing)
     androidTestImplementation(libs.kluent.android)
 
