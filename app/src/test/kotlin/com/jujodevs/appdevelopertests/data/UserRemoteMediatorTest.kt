@@ -13,6 +13,7 @@ import com.jujodevs.appdevelopertests.data.network.dto.UsersDto
 import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.testshared.coVerifyNever
 import com.jujodevs.testshared.coVerifyOnce
+import com.jujodevs.testshared.testrules.CoroutinesTestRule
 import io.mockk.coEvery
 import io.mockk.coJustRun
 import io.mockk.every
@@ -22,12 +23,17 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import org.amshove.kluent.shouldBe
 import org.amshove.kluent.shouldBeInstanceOf
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
 class UserRemoteMediatorTest {
+
+    @get:Rule
+    val coroutinesTestRule = CoroutinesTestRule()
+
     private val userDao: UserDao = mockk()
     private val userRemote: UserRemoteDataSource = mockk()
 
