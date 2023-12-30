@@ -4,9 +4,9 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
 import com.jujodevs.appdevelopertests.data.database.UserDao
 import com.jujodevs.appdevelopertests.data.database.UserEntity
+import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
 import com.jujodevs.appdevelopertests.data.mapper.toUserEntity
 import retrofit2.HttpException
 import java.io.IOException
@@ -23,7 +23,11 @@ class UserRemoteMediator @Inject constructor(
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
-                LoadType.REFRESH, LoadType.PREPEND -> 1
+                LoadType.REFRESH -> 1
+                LoadType.PREPEND -> {
+                    val lastItem = state.lastItemOrNull()
+                    lastItem?.page ?: 1
+                }
                 LoadType.APPEND -> {
                     val lastItem = state.lastItemOrNull()
                     if (lastItem == null) {
