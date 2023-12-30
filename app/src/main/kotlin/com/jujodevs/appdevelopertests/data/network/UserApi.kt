@@ -11,8 +11,4 @@ interface UserApi {
         @Query("results") results: Int = 20,
         @Query("seed") seed: String = "appdevelopertests"
     ): UsersDto
-
-    companion object {
-        const val BASE_URL = "https://randomuser.me/api/"
-    }
 }

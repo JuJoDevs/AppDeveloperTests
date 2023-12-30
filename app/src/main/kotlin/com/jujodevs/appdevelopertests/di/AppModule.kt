@@ -32,6 +32,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 private const val ResponseTimeOutSeconds: Long = 100
+private const val Url: String = "https://randomuser.me/api/"
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -53,10 +54,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, @ApiUrl apiUrl: String): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(UserApi.BASE_URL)
+            .baseUrl(apiUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -88,6 +89,11 @@ object AppExtrasModule {
             UserDatabase::class.java,
             "user.db",
         ).build()
+
+    @Provides
+    @Singleton
+    @ApiUrl
+    fun provideApiUrl(): String = Url
 }
 
 @Module

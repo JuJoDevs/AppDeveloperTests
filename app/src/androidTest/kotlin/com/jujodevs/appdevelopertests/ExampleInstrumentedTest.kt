@@ -1,10 +1,8 @@
 package com.jujodevs.appdevelopertests
 
 import androidx.paging.testing.asSnapshot
+import com.jujodevs.appdevelopertests.data.remote.MockWebServerRule
 import com.jujodevs.appdevelopertests.data.repository.UserRepository
-import com.jujodevs.appdevelopertests.testshared.data.datasource.UserRemoteDataSourceFake
-import com.jujodevs.testshared.FakeUsers
-import com.jujodevs.testshared.testrules.CoroutinesTestRule
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
@@ -21,13 +19,10 @@ class ExampleInstrumentedTest {
     val hiltRule = HiltAndroidRule(this)
 
     @get:Rule
-    val coroutinesRule = CoroutinesTestRule()
+    val mockWebServerRule = MockWebServerRule()
 
     @Inject
     lateinit var userRepository: UserRepository
-
-    @Inject
-    lateinit var dataSourceFake: UserRemoteDataSourceFake
 
     @Before
     fun setup() {
@@ -35,14 +30,13 @@ class ExampleInstrumentedTest {
     }
 
     @Test
-    fun testHiltWorks() = runTest {
-        val expectedUsers = FakeUsers.users
-
+    fun testHiltRoomMockServerWorks() = runTest {
         val pagingUsers = userRepository.pagingUser()
         val result = pagingUsers.asSnapshot {
             refresh()
         }
 
-        result shouldBeEqualTo expectedUsers
+        result[0].id shouldBeEqualTo 1
+        result[0].name shouldBeEqualTo "Norbert Roussel"
     }
 }

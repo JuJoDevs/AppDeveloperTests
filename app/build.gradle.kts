@@ -140,6 +140,7 @@ dependencies {
     androidTestImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.paging.testing)
     androidTestImplementation(libs.kluent.android)
+    androidTestImplementation(libs.mockwebserver)
 
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
