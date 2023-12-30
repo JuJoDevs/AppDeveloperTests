@@ -11,7 +11,6 @@ import com.jujodevs.testshared.verifyOnce
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
@@ -20,7 +19,6 @@ import org.amshove.kluent.shouldBeInstanceOf
 import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class UsersViewModelTest {
 
     @get:Rule
@@ -182,7 +180,7 @@ class UsersViewModelTest {
     }
 
     @Test
-    fun `GIVEN fun findUsers WHEN text 'test' THEN flow filter two name results`() = runTest {
+    fun `GIVEN fun findUsers WHEN text is 'test' THEN flow filters two name results`() = runTest {
         val text = "test"
         val users = buildPagingUserDataFlow(
             listOf(
@@ -213,7 +211,7 @@ class UsersViewModelTest {
     }
 
     @Test
-    fun `GIVEN fun findUsers WHEN text 'test' THEN flow filter two email results`() = runTest {
+    fun `GIVEN fun findUsers WHEN text is 'test' THEN flow filters two email results`() = runTest {
         val text = "tst"
         val users = buildPagingUserDataFlow(
             listOf(
@@ -244,7 +242,7 @@ class UsersViewModelTest {
     }
 
     @Test
-    fun `GIVEN fun findUsers WHEN text 'rest' THEN flow filter third user`() = runTest {
+    fun `GIVEN fun findUsers WHEN text is 'rest' THEN flow filters third user`() = runTest {
         val text = "rest"
         val users = buildPagingUserDataFlow(
             listOf(
@@ -271,6 +269,65 @@ class UsersViewModelTest {
         items.size shouldBeEqualTo 1
         verify(exactly = 2) { getPagingUsersUseCase() }
         items[0].name shouldBeEqualTo "rest3"
+    }
+
+    @Test
+    fun `GIVEN fun findUsers WHEN text is 'rst' THEN flow filters third user`() = runTest {
+        val text = "rst"
+        val users = buildPagingUserDataFlow(
+            listOf(
+                User(id = 1, name = "test", email = "tst@t.com"),
+                User(id = 2, name = "test2", email = "tst2@t.com"),
+                User(id = 3, name = "rest3", email = "rst3@t.com"),
+            ),
+        )
+
+        every { getPagingUsersUseCase() } returns users
+        viewModel = UsersViewModel(getPagingUsersUseCase)
+
+        var state = LazyPagingItemsTest(viewModel.userPagingFlow)
+        state.initPagingDiffer()
+        var items = state.itemSnapshotList.items
+
+        items.size shouldBeEqualTo 3
+
+        viewModel.findUsers(text)
+        state = LazyPagingItemsTest(viewModel.userPagingFlow)
+        state.initPagingDiffer()
+        items = state.itemSnapshotList.items
+
+        items.size shouldBeEqualTo 1
+        verify(exactly = 2) { getPagingUsersUseCase() }
+        items[0].email shouldBeEqualTo "rst3@t.com"
+    }
+
+    @Test
+    fun `GIVEN fun findUsers WHEN text is 'text' THEN flow filters zero users`() = runTest {
+        val text = "text"
+        val users = buildPagingUserDataFlow(
+            listOf(
+                User(id = 1, name = "test", email = "tst@t.com"),
+                User(id = 2, name = "test2", email = "tst2@t.com"),
+                User(id = 3, name = "rest3", email = "rst3@t.com"),
+            ),
+        )
+
+        every { getPagingUsersUseCase() } returns users
+        viewModel = UsersViewModel(getPagingUsersUseCase)
+
+        var state = LazyPagingItemsTest(viewModel.userPagingFlow)
+        state.initPagingDiffer()
+        var items = state.itemSnapshotList.items
+
+        items.size shouldBeEqualTo 3
+
+        viewModel.findUsers(text)
+        state = LazyPagingItemsTest(viewModel.userPagingFlow)
+        state.initPagingDiffer()
+        items = state.itemSnapshotList.items
+
+        items.size shouldBeEqualTo 0
+        verify(exactly = 2) { getPagingUsersUseCase() }
     }
 
     private fun buildPagingUserDataFlow(

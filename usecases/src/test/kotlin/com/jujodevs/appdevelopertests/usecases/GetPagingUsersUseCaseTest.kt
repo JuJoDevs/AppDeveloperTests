@@ -3,7 +3,7 @@ package com.jujodevs.appdevelopertests.usecases
 import androidx.paging.PagingData
 import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.appdevelopertests.domain.repository.UserRepositoryContract
-import io.mockk.coVerify
+import com.jujodevs.testshared.coVerifyOnce
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit4.MockKRule
@@ -34,7 +34,7 @@ class GetPagingUsersUseCaseTest {
 
         val result = runBlocking { getPagingUsersUseCase().first() }
 
-        coVerify(exactly = 1) { userRepository.pagingUser() }
+        coVerifyOnce { userRepository.pagingUser() }
         assertEquals(expectedPaging, result)
     }
 }

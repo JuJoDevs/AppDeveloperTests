@@ -3,6 +3,7 @@ package com.jujodevs.appdevelopertests.data.repository
 import androidx.paging.PagingData
 import com.jujodevs.appdevelopertests.data.datasources.UserLocalDataSource
 import com.jujodevs.appdevelopertests.domain.User
+import com.jujodevs.testshared.coVerifyOnce
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -42,7 +43,7 @@ class UserRepositoryTest {
     fun `WHEN pagingUser THEN call localDataSource pagingUser once`() {
         val result = runBlocking { userRepository.pagingUser().first() }
 
-        coVerify(exactly = 1) { localDataSource.pagingUser() }
+        coVerifyOnce { localDataSource.pagingUser() }
         assertEquals(expectedPaging, result)
     }
 

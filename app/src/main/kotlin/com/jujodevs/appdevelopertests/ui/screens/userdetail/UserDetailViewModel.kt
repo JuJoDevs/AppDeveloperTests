@@ -27,6 +27,7 @@ class UserDetailViewModel @Inject constructor(
             savedStateHandle.get<Int>(NavArg.Id.key)?.let {
                 _uiState.value = UserDetailUiState(user = getUserUseCase(it))
             }
+            _uiState.value = _uiState.value.copy(loading = false)
         }
     }
 }

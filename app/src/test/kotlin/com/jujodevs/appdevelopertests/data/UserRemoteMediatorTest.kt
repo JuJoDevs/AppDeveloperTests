@@ -10,9 +10,9 @@ import com.jujodevs.appdevelopertests.data.database.UserEntity
 import com.jujodevs.appdevelopertests.data.datasources.UserRemoteDataSource
 import com.jujodevs.appdevelopertests.data.mapper.toUserEntity
 import com.jujodevs.appdevelopertests.domain.User
+import com.jujodevs.testshared.coVerifyOnce
 import io.mockk.coEvery
 import io.mockk.coJustRun
-import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.amshove.kluent.shouldBeInstanceOf
@@ -56,7 +56,7 @@ class UserRemoteMediatorTest {
 
         result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
 
-        coVerify(exactly = 1) {
+        coVerifyOnce {
             userRemote.getUsers(page, pageSize)
             userDao.upsertAll(users.toUserEntity(page))
         }
