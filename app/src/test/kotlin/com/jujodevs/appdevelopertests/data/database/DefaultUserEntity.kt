@@ -1,7 +1,7 @@
 package com.jujodevs.appdevelopertests.data.database
 
 object DefaultUserEntity {
-    val userEntity = UserEntity(
+    private val userEntity = UserEntity(
         id = 1,
                 page = 1,
                 email = "test1@example.com",
