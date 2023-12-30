@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.jujodevs.appdevelopertests.di.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -134,9 +134,14 @@ dependencies {
     androidTestImplementation(project(":apptestshared"))
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.rules)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.dagger.hilt.compiler)
+    androidTestImplementation(libs.paging.testing)
+    androidTestImplementation(libs.kluent.android)
+
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
-    androidTestImplementation(libs.turbine)
 
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)

@@ -23,7 +23,7 @@ class UserDataSourceFake(
 
     @OptIn(ExperimentalPagingApi::class)
     private val users = Pager(
-        config = PagingConfig(pageSize = 20),
+        config = PagingConfig(pageSize = 2),
         remoteMediator = userRemoteMediator,
         pagingSourceFactory = { userRemoteMediator.pagingSource() },
     )
