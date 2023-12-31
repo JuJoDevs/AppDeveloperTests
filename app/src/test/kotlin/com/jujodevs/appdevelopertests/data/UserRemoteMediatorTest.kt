@@ -48,191 +48,170 @@ class UserRemoteMediatorTest {
     @Test
     fun `GIVEN user WHEN load refresh THEN get the expected mediator result`() =
         runTest {
-            val loadType = LoadType.REFRESH
-            val page = 1
-            val pageSize = 20
-            val state: PagingState<Int, UserEntity> = mockk()
-            val config = PagingConfig(pageSize)
-            val users = listOf<User>()
+            val testParams = SuccesTestParams(
+                loadType = LoadType.REFRESH,
+                page = 1,
+                users = listOf(),
+            )
 
-            every { state.config } returns config
-            coEvery { userRemote.getUsers(page, pageSize) } returns users
-            coJustRun { userDao.upsertAll(users.toUserEntity(page)) }
-
-            val result = mediator.load(loadType, state)
+            val result = mediator.load(testParams.loadType, testParams.state)
 
             result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
             (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
 
             coVerifyOnce {
-                userRemote.getUsers(page, pageSize)
-                userDao.upsertAll(users.toUserEntity(page))
+                userRemote.getUsers(testParams.page, testParams.pageSize)
+                userDao.upsertAll(testParams.users.toUserEntity(testParams.page))
             }
         }
 
     @OptIn(ExperimentalPagingApi::class)
     @Test
-    fun `GIVEN user WHEN load prepend with last item null THEN get the expected mediator result`() = runTest {
-        val loadType = LoadType.PREPEND
-        val page = 1
-        val pageSize = 20
-        val state: PagingState<Int, UserEntity> = mockk()
-        val config = PagingConfig(pageSize)
-        val lastItem: UserEntity? = null
-        val users = listOf<User>()
+    fun `GIVEN user WHEN load prepend with last item null THEN get the expected mediator result`() =
+        runTest {
+            val testParams = SuccesTestParams(
+                loadType = LoadType.PREPEND,
+                page = 1,
+                users = listOf(),
+                lastItem = null,
+            )
 
-        every { state.config } returns config
-        every { state.lastItemOrNull() } returns lastItem
-        coEvery { userRemote.getUsers(page, pageSize) } returns users
-        coJustRun { userDao.upsertAll(users.toUserEntity(page)) }
+            val result = mediator.load(testParams.loadType, testParams.state)
 
-        val result = mediator.load(loadType, state)
+            result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
+            (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
 
-        result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
-        (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
-
-        coVerifyOnce {
-            userRemote.getUsers(page, pageSize)
-            userDao.upsertAll(users.toUserEntity(page))
+            coVerifyOnce {
+                userRemote.getUsers(testParams.page, testParams.pageSize)
+                userDao.upsertAll(testParams.users.toUserEntity(testParams.page))
+            }
         }
-    }
 
     @OptIn(ExperimentalPagingApi::class)
     @Test
-    fun `GIVEN user WHEN load prepend with last item with page 1 THEN get the expected mediator result`() = runTest {
-        val loadType = LoadType.PREPEND
-        val page = 1
-        val pageSize = 20
-        val state: PagingState<Int, UserEntity> = mockk()
-        val config = PagingConfig(pageSize)
-        val lastItem: UserEntity = mockk()
-        val users = listOf<User>()
+    fun `GIVEN user WHEN load prepend with last item with page 1 THEN get the expected mediator result`() =
+        runTest {
+            val testParams = SuccesTestParams(
+                loadType = LoadType.PREPEND,
+                page = 1,
+                users = listOf(),
+            )
 
-        every { lastItem.page } returns page
-        every { state.config } returns config
-        every { state.lastItemOrNull() } returns lastItem
-        coEvery { userRemote.getUsers(page, pageSize) } returns users
-        coJustRun { userDao.upsertAll(users.toUserEntity(page)) }
+            every { testParams.lastItem?.page } returns testParams.page
 
-        val result = mediator.load(loadType, state)
+            val result = mediator.load(testParams.loadType, testParams.state)
 
-        result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
-        (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
+            result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
+            (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
 
-        coVerifyOnce {
-            userRemote.getUsers(page, pageSize)
-            userDao.upsertAll(users.toUserEntity(page))
+            coVerifyOnce {
+                userRemote.getUsers(testParams.page, testParams.pageSize)
+                userDao.upsertAll(testParams.users.toUserEntity(testParams.page))
+            }
         }
-    }
 
     @OptIn(ExperimentalPagingApi::class)
     @Test
-    fun `GIVEN user WHEN load append with last item null THEN get the expected mediator result`() = runTest {
-        val loadType = LoadType.APPEND
-        val page = 1
-        val pageSize = 20
-        val state: PagingState<Int, UserEntity> = mockk()
-        val config = PagingConfig(pageSize)
-        val lastItem: UserEntity? = null
-        val users = listOf<User>()
+    fun `GIVEN user WHEN load append with last item null THEN get the expected mediator result`() =
+        runTest {
+            val testParams = SuccesTestParams(
+                loadType = LoadType.APPEND,
+                page = 1,
+                users = listOf(),
+            )
 
-        every { state.config } returns config
-        every { state.lastItemOrNull() } returns lastItem
-        coEvery { userRemote.getUsers(page, pageSize) } returns users
-        coJustRun { userDao.upsertAll(users.toUserEntity(page)) }
+            val result = mediator.load(testParams.loadType, testParams.state)
 
-        val result = mediator.load(loadType, state)
+            result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
+            (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
 
-        result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
-        (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
-
-        coVerifyOnce {
-            userRemote.getUsers(page, pageSize)
-            userDao.upsertAll(users.toUserEntity(page))
+            coVerifyOnce {
+                userRemote.getUsers(testParams.page, testParams.pageSize)
+                userDao.upsertAll(testParams.users.toUserEntity(testParams.page))
+            }
         }
-    }
 
     @OptIn(ExperimentalPagingApi::class)
     @Test
-    fun `GIVEN user WHEN load append with last item user page 1 THEN get the expected mediator result`() = runTest {
-        val loadType = LoadType.APPEND
-        val page = 2
-        val pageSize = 20
-        val state: PagingState<Int, UserEntity> = mockk()
-        val config = PagingConfig(pageSize)
-        val lastItem: UserEntity = mockk()
-        val users = listOf<User>()
+    fun `GIVEN user WHEN load append with last item user page 1 THEN get the expected mediator result`() =
+        runTest {
+            val testParams = SuccesTestParams(
+                loadType = LoadType.APPEND,
+                page = 2,
+                users = listOf(),
+            )
 
-        every { lastItem.page } returns page - 1
-        every { state.config } returns config
-        every { state.lastItemOrNull() } returns lastItem
-        coEvery { userRemote.getUsers(page, pageSize) } returns users
-        coJustRun { userDao.upsertAll(users.toUserEntity(page)) }
+            val result = mediator.load(testParams.loadType, testParams.state)
 
-        val result = mediator.load(loadType, state)
+            result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
+            (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
 
-        result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
-        (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
-
-        coVerifyOnce {
-            userRemote.getUsers(page, pageSize)
-            userDao.upsertAll(users.toUserEntity(page))
+            coVerifyOnce {
+                userRemote.getUsers(testParams.page, testParams.pageSize)
+                userDao.upsertAll(testParams.users.toUserEntity(testParams.page))
+            }
         }
-    }
 
     @OptIn(ExperimentalPagingApi::class)
     @Test
-    fun `GIVEN user WHEN load with users list is not empty THEN get the expected mediator result`() = runTest {
-        val loadType = LoadType.APPEND
-        val page = 2
-        val pageSize = 20
-        val state: PagingState<Int, UserEntity> = mockk()
-        val config = PagingConfig(pageSize)
-        val lastItem: UserEntity = mockk()
-        val users = listOf(User())
+    fun `GIVEN user WHEN load with users list is not empty THEN get the expected mediator result`() =
+        runTest {
+            val testParams = SuccesTestParams(
+                loadType = LoadType.APPEND,
+                page = 2,
+                users = listOf(User()),
+            )
 
-        every { lastItem.page } returns page - 1
-        every { state.config } returns config
-        every { state.lastItemOrNull() } returns lastItem
-        coEvery { userRemote.getUsers(page, pageSize) } returns users
-        coJustRun { userDao.upsertAll(users.toUserEntity(page)) }
+            val result = mediator.load(testParams.loadType, testParams.state)
 
-        val result = mediator.load(loadType, state)
+            result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
+            (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe false
 
-        result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
-        (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe false
-
-        coVerifyOnce {
-            userRemote.getUsers(page, pageSize)
-            userDao.upsertAll(users.toUserEntity(page))
+            coVerifyOnce {
+                userRemote.getUsers(testParams.page, testParams.pageSize)
+                userDao.upsertAll(testParams.users.toUserEntity(testParams.page))
+            }
         }
-    }
 
     @OptIn(ExperimentalPagingApi::class)
     @Test
-    fun `GIVEN user WHEN load with users list is empty THEN get the expected mediator result`() = runTest {
-        val loadType = LoadType.APPEND
-        val page = 2
-        val pageSize = 20
+    fun `GIVEN user WHEN load with users list is empty THEN get the expected mediator result`() =
+        runTest {
+            val testParams = SuccesTestParams(
+                loadType = LoadType.APPEND,
+                page = 2,
+                users = listOf(),
+            )
+
+            val result = mediator.load(testParams.loadType, testParams.state)
+
+            result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
+            (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
+
+            coVerifyOnce {
+                userRemote.getUsers(testParams.page, testParams.pageSize)
+                userDao.upsertAll(testParams.users.toUserEntity(testParams.page))
+            }
+        }
+
+    private inner class SuccesTestParams(
+        val loadType: LoadType,
+        val page: Int,
+        val users: List<User>,
+        val lastItem: UserEntity? = mockk(),
+    ) {
+        val pageSize: Int = 20
         val state: PagingState<Int, UserEntity> = mockk()
-        val config = PagingConfig(pageSize)
-        val lastItem: UserEntity = mockk()
-        val users = listOf<User>()
+        val config: PagingConfig = PagingConfig(pageSize)
 
-        every { lastItem.page } returns page - 1
-        every { state.config } returns config
-        every { state.lastItemOrNull() } returns lastItem
-        coEvery { userRemote.getUsers(page, pageSize) } returns users
-        coJustRun { userDao.upsertAll(users.toUserEntity(page)) }
-
-        val result = mediator.load(loadType, state)
-
-        result shouldBeInstanceOf RemoteMediator.MediatorResult.Success::class
-        (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached shouldBe true
-
-        coVerifyOnce {
-            userRemote.getUsers(page, pageSize)
-            userDao.upsertAll(users.toUserEntity(page))
+        init {
+            lastItem?.let {
+                every { lastItem.page } returns page - 1
+            }
+            every { state.config } returns config
+            every { state.lastItemOrNull() } returns lastItem
+            coEvery { userRemote.getUsers(page, pageSize) } returns users
+            coJustRun { userDao.upsertAll(users.toUserEntity(page)) }
         }
     }
 
@@ -240,55 +219,60 @@ class UserRemoteMediatorTest {
     @Test
     fun `GIVEN user WHEN load with remote error THEN get error`() =
         runTest {
-            val loadType = LoadType.REFRESH
-            val page = 1
-            val pageSize = 20
-            val state: PagingState<Int, UserEntity> = mockk()
-            val config = PagingConfig(pageSize)
-            val users = listOf<User>()
             val messageError = "Remote error"
-            val error = HttpException(Response.error<UsersDto>(500, messageError.toResponseBody()))
 
-            every { state.config } returns config
-            coEvery{ userRemote.getUsers(page, pageSize) } throws error
-            coJustRun { userDao.upsertAll(users.toUserEntity(page)) }
+            val params = ErrorTestParams(
+                HttpException(Response.error<UsersDto>(500, messageError.toResponseBody()))
+            )
 
-            val result = mediator.load(loadType, state)
+            coEvery { userRemote.getUsers(params.page, params.pageSize) } throws params.error
+            coJustRun { userDao.upsertAll(params.users.toUserEntity(params.page)) }
+
+            val result = mediator.load(params.loadType, params.state)
 
             result shouldBeInstanceOf RemoteMediator.MediatorResult.Error::class
             (result as RemoteMediator.MediatorResult.Error).throwable shouldBeInstanceOf HttpException::class
-            result.throwable shouldBe error
+            result.throwable shouldBe params.error
 
-            coVerifyOnce { userRemote.getUsers(page, pageSize) }
-            coVerifyNever { userDao.upsertAll(users.toUserEntity(page)) }
+            coVerifyOnce { userRemote.getUsers(params.page, params.pageSize) }
+            coVerifyNever { userDao.upsertAll(params.users.toUserEntity(params.page)) }
         }
 
     @OptIn(ExperimentalPagingApi::class)
     @Test
     fun `GIVEN user WHEN load with local error THEN get error`() =
         runTest {
-            val loadType = LoadType.REFRESH
-            val page = 1
-            val pageSize = 20
-            val state: PagingState<Int, UserEntity> = mockk()
-            val config = PagingConfig(pageSize)
-            val users = listOf<User>()
-            val messageError = "Remote error"
-            val error = IOException(messageError)
+            val messageError = "Local error"
 
-            every { state.config } returns config
-            coEvery { userRemote.getUsers(page, pageSize) } returns users
-            coEvery { userDao.upsertAll(users.toUserEntity(page)) } throws error
+            val params = ErrorTestParams(IOException(messageError))
 
-            val result = mediator.load(loadType, state)
+            coEvery { userRemote.getUsers(params.page, params.pageSize) } returns params.users
+            coEvery { userDao.upsertAll(params.users.toUserEntity(params.page)) } throws params.error
+
+            val result = mediator.load(params.loadType, params.state)
 
             result shouldBeInstanceOf RemoteMediator.MediatorResult.Error::class
             (result as RemoteMediator.MediatorResult.Error).throwable shouldBeInstanceOf IOException::class
-            result.throwable shouldBe error
+            result.throwable shouldBe params.error
 
             coVerifyOnce {
-                userRemote.getUsers(page, pageSize)
-                userDao.upsertAll(users.toUserEntity(page))
+                userRemote.getUsers(params.page, params.pageSize)
+                userDao.upsertAll(params.users.toUserEntity(params.page))
             }
         }
+
+    internal class ErrorTestParams(
+        val error: Exception,
+    ) {
+        val loadType: LoadType = LoadType.REFRESH
+        val page: Int = 1
+        val pageSize: Int = 20
+        val state: PagingState<Int, UserEntity> = mockk()
+        val config: PagingConfig = PagingConfig(pageSize)
+        val users: List<User> = listOf()
+
+        init {
+            every { state.config } returns config
+        }
+    }
 }
