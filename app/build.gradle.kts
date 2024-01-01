@@ -1,7 +1,10 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-
+    alias(libs.plugins.hiltAndroid)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.io.gitlab.arturbosch.detekt)
     alias((libs.plugins.org.jlleitschuh.gradle.ktlint))
 }
@@ -17,7 +20,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.jujodevs.appdevelopertests.di.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -51,7 +54,14 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/{AL2.0,LGPL2.1,LICENSE.md,LICENSE-notice.md}"
+        }
+    }
+    testOptions {
+        packaging {
+            jniLibs {
+                useLegacyPackaging = true
+            }
         }
     }
 }
@@ -65,8 +75,13 @@ ktlint {
 
 dependencies {
 
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":usecases"))
+
     implementation(libs.core.ktx)
-    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
@@ -74,13 +89,67 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
 
+    // ICONS
+    implementation(libs.material.icons.extended)
+
+    // NAVIGATION
+    implementation(libs.navigation)
+
+    // PAGING
+    implementation(libs.paging)
+    implementation(libs.paging.common)
+    implementation(libs.paging.compose)
+
+    // RETROFIT
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
+
+    // ARROW
+    implementation(libs.arrow)
+
+    // HILT
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
+
     // DETEKT
     detektPlugins(libs.detetkcompose)
     detektPlugins(libs.detetkformatting)
 
+    // SPLASH
+    implementation(libs.splashscreen)
+
+    // COIL
+    implementation(libs.coil)
+
+    // ROOM
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+    implementation(libs.room.paging)
+
+    testImplementation(project(":testshared"))
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kluent)
+    testImplementation(libs.paging.testing)
+    testImplementation(libs.turbine)
+
+    androidTestImplementation(project(":testshared"))
+    androidTestImplementation(project(":apptestshared"))
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.rules)
+    androidTestImplementation(libs.hilt.android.testing)
+    kspAndroidTest(libs.dagger.hilt.compiler)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.paging.testing)
+    androidTestImplementation(libs.kluent.android)
+    androidTestImplementation(libs.mockwebserver)
+    androidTestImplementation(libs.mockk.android)
+
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.ui.test.junit4)
 

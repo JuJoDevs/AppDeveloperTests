@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">AppDeveloperTests</string>
+    <string name="app_name">DevTests</string>
+    <string name="contacts">CONTACTOS</string>
+    <string name="first_and_last_name">Nombre y apellidos</string>
+    <string name="email">Email</string>
+    <string name="gender">Género</string>
+    <string name="registration_date">Fecha de registro</string>
+    <string name="phone">Teléfono</string>
+    <string name="find">Buscar</string>
 </resources>

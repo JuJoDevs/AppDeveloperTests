@@ -7,6 +7,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -14,6 +15,11 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
 rootProject.name = "AppDeveloperTests"
+
 include(":app")
+include(":domain")
+include(":data")
+include(":usecases")
+include(":testshared")
+include(":apptestshared")
