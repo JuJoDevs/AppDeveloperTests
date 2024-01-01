@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -21,7 +20,6 @@ import com.jujodevs.appdevelopertests.ui.screens.userdetail.UserDetailTopBar
 import com.jujodevs.appdevelopertests.ui.screens.users.UsersTopBar
 import com.jujodevs.appdevelopertests.ui.theme.AppDeveloperTestsTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DeveloperTestsApp(
     modifier: Modifier = Modifier,

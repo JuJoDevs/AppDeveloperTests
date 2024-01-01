@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -41,10 +42,11 @@ import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.appdevelopertests.ui.DeveloperTestsAppState
 import com.jujodevs.appdevelopertests.ui.providers.BackgroudPhotoProvider
 import com.jujodevs.appdevelopertests.ui.theme.Neutral95
-import java.util.Locale
 import kotlinx.coroutines.delay
+import java.util.Locale
 
 private const val ImageDelay = 1500L
+const val UserDetailBackTag = "UserDetailBack"
 
 @Composable
 fun UserDetailTopBar(
@@ -120,7 +122,10 @@ private fun TopBar(
 ) {
     TopAppBar(
         navigationIcon = {
-            IconButton(onClick = { stateApp.popBackStack() }) {
+            IconButton(
+                onClick = { stateApp.popBackStack() },
+                modifier = Modifier.testTag(UserDetailBackTag)
+            ) {
                 Icon(
                     painter = painterResource(id = R.drawable.back),
                     contentDescription = null,

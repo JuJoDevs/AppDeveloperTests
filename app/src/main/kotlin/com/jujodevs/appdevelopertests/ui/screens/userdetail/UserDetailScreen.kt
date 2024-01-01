@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -30,6 +31,8 @@ import com.jujodevs.appdevelopertests.ui.common.buildIFrameMap
 import com.jujodevs.appdevelopertests.ui.screens.userdetail.model.getGender
 import com.jujodevs.appdevelopertests.ui.theme.IsAppearanceLightStatusBars
 
+const val UserDetailScreenTag = "UserDetailScreen"
+
 @Composable
 fun UserDetailScreen(
     modifier: Modifier = Modifier,
@@ -41,7 +44,9 @@ fun UserDetailScreen(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .testTag(UserDetailScreenTag),
     ) {
         when {
             uiState.loading -> {

@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -37,6 +38,10 @@ import com.jujodevs.appdevelopertests.domain.User
 import com.jujodevs.appdevelopertests.ui.DeveloperTestsAppState
 import com.jujodevs.appdevelopertests.ui.common.RowSpacer
 import com.jujodevs.appdevelopertests.ui.theme.IsAppearanceLightStatusBars
+
+const val UsersScreenTag = "UsersScreen"
+const val UsersLazyColumnTag = "UsersLazyColumn"
+const val UserRowTag = "RowUser"
 
 @Composable
 fun UsersScreen(
@@ -60,7 +65,9 @@ fun UsersScreen(
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier
+            .fillMaxSize()
+            .testTag(UsersScreenTag),
     ) {
         when (users.loadState.refresh) {
             is LoadState.Error ->
@@ -68,7 +75,11 @@ fun UsersScreen(
 
             LoadState.Loading -> CircularProgressIndicator()
             is LoadState.NotLoading -> {
-                LazyColumn(Modifier.fillMaxSize()) {
+                LazyColumn(
+                    Modifier
+                        .fillMaxSize()
+                        .testTag(UsersLazyColumnTag),
+                ) {
                     items(
                         count = users.itemCount,
                         key = users.itemKey { it.id },
@@ -99,7 +110,8 @@ fun UserItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onNavigateToDetail(user) },
+            .clickable { onNavigateToDetail(user) }
+            .testTag(UserRowTag+user.id),
     ) {
         Box(
             contentAlignment = Alignment.Center,

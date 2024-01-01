@@ -8,12 +8,14 @@ import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
 class MockWebServerRule :TestWatcher() {
-    lateinit var server : MockWebServer
+
+    private lateinit var server : MockWebServer
 
     override fun starting(description: Description?) {
-        server = MockWebServer()
-        server.start(8080)
-        server.dispatcher = MockDispatcher()
+        server = MockWebServer().apply {
+            start(8080)
+            dispatcher = MockDispatcher()
+        }
     }
 
     override fun finished(description: Description?) {

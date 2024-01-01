@@ -15,6 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,6 +23,10 @@ import com.jujodevs.appdevelopertests.R
 import com.jujodevs.appdevelopertests.ui.DeveloperTestsAppState
 import com.jujodevs.appdevelopertests.ui.common.AutoFocusingTextField
 import com.jujodevs.appdevelopertests.ui.common.dropdownmenu.DropdownMenu0VerticalPadding
+
+const val UsersMenuTag = "UsersMenu"
+const val UsersBackTag = "UsersBack"
+const val UsersSearchTag = "UsersSearch"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +45,10 @@ fun UsersTopBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = onNavigateBack) {
+            IconButton(
+                onClick = onNavigateBack,
+                modifier = Modifier.testTag(UsersBackTag)
+            ) {
                 Icon(
                     painter = painterResource(id = R.drawable.back),
                     contentDescription = null,
@@ -48,7 +56,10 @@ fun UsersTopBar(
             }
         },
         actions = {
-            IconButton(onClick = { expand = true }) {
+            IconButton(
+                onClick = { expand = true },
+                modifier = Modifier.testTag(UsersMenuTag)
+            ) {
                 Icon(
                     painter = painterResource(id = R.drawable.submenu),
                     contentDescription = null,
@@ -75,6 +86,7 @@ fun UsersTopBar(
                             Icon(imageVector = Icons.Default.Close, contentDescription = null)
                         }
                     },
+                    modifier = Modifier.testTag(UsersSearchTag),
                 )
             }
         },
